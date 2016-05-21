@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "app": "node server/index",
-    "build": ""
+    "build": "",
+    "install": "bower install"
   },
   "author": "",
   "license": "ISC",

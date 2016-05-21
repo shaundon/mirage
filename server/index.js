@@ -28,7 +28,9 @@ io.on('connection', (socket) => {
     console.log('Client disconnected');
   });
 });
-server.listen(3000);
+server.listen(3000, function() {
+  console.log('***** Mirage running on port 3000 *****');
+});
 
 const getWeather = () => {
   Weather.get().then((weatherData) => {
