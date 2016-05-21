@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "app": "node server/index",
-    "build": "",
+    "app": "npm run build && node server/index",
+    "build": "lessc --clean-css=\"--s0\" web-app/src/styles/main.less web-app/src/styles/main.css",
     "install": "bower install"
   },
   "author": "",
@@ -13,6 +13,8 @@
   "dependencies": {
     "express": "^4.13.4",
     "forecast.io": "0.0.9",
+    "less": "^2.7.1",
+    "less-plugin-clean-css": "^1.5.1",
     "request": "^2.72.0",
     "socket.io": "^1.4.6"
   }

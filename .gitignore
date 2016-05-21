@@ -1,4 +1,5 @@
 node_modules/
 config.json
-web-app/src/libs/
+web-app/src/scripts/libs/
+web-app/src/styles/main.css
 **/.DS_Store
