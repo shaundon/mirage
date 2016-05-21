@@ -1,14 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="mirage">
   <head>
     <meta charset="utf-8">
     <title>Mirage</title>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+    <!-- Lib files. -->
     <script src="scripts/libs/socket.io-client/socket.io.js"></script>
-    <script src="scripts/main.js" type="text/babel"></script>
-    <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <script src="scripts/libs/angular/angular.min.js"></script>
+    <script src="scripts/libs/angular-socket-io/socket.min.js"></script>
+
+    <!-- App files. -->
+    <script src="scripts/main.js"></script>
+
+    <!-- Styles. -->
+    <link href='//fonts.googleapis.com/css?family=Roboto:300,300italic,100' rel='stylesheet' type='text/css'>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <link href="styles/main.css" rel="stylesheet">
+
   </head>
   <body>
+
+    <div class="row">
+
+      <!-- Weather. -->
+      <div class="col-sm-8">
+        <section ng-controller="WeatherController as ctrl">
+          <div ng-show="ctrl.weatherService.currently">
+            <div>
+              <span class="text-xl">
+                {{ctrl.weatherService.currently.temperature | round}}&deg;
+              </span>
+              <i class="text-lg wi wi-forecast-io-{{ctrl.weatherService.currently.icon}}"></i>
+            </div>
+            <div class="text-md">
+              {{ctrl.weatherService.hourly.summary}}
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Time and date. -->
+      <div class="col-sm-4 right-aligned">
+        <div class="text-xl">
+          <time/>
+        </div>
+        <div class="text-md">
+          <date/>
+        </div>
+      </div>
+
+    </div>
+
+    <section ng-controller="WelcomeController as ctrl" class="row">
+      <div class="text-lg centre-aligned col-sm-12">{{ctrl.welcomeService.message}}</div>
+      <div ng-show="ctrl.welcomeService.extra" class="text-md col-sm-12">
+        {{ctrl.welcomeService.extra}}
+      </div>
+    </section>
+
+    <section ng-controller="TfLController as ctrl">
+      <div ng-show="ctrl.tflService.arrivals" class="row">
+        <div ng-repeat="(line, data) in ctrl.tflService.arrivals" class="col-sm-6 bottom-margin">
+          <div class="text-md">
+            <i class="material-icons" ng-if="data.modeName === 'bus'">directions_bus</i>
+            <i class="material-icons" ng-if="data.modeName === 'overground'">train</i>
+            {{line}}
+          </div>
+          <table>
+            <tbody>
+              <tr ng-repeat="(destination, times) in data.arrivals">
+                <td class="destination-cell">{{destination | truncate:20:'..'}}</td>
+                <td class="right-aligned">{{times}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div ng-show="ctrl.tflService.disruption">
+          <div ng-repeat="disruption in ctrl.tflService.disruption">
+            {{disruption.description}}
+          </div>
+      </div>
+    </section>
+
   </body>
 </html>

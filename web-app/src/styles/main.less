@@ -1,5 +1,49 @@
+@import (inline) "../scripts/libs/flexboxgrid/dist/flexboxgrid.min.css";
+
+@import "../scripts/libs/weather-icons/less/weather-icons";
+
 html {
   background: #000;
   color: #fff;
-  font-family: Roboto, Helvetica, Arial, sans-serif;;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size: 24px;
+}
+
+@base-font-size: 24px;
+
+.text-md {
+    font-size: @base-font-size*1.25;
+}
+
+.text-lg {
+    font-size: @base-font-size*2.5;
+}
+
+.text-xl {
+    font-size: @base-font-size*4;
+    font-weight: 100;
+}
+
+.text-sm {
+    font-size: @base-font-size;
+}
+
+.row {
+    margin-bottom: 50px;
+}
+
+.right-aligned {
+    text-align: right;
+}
+
+.centre-aligned {
+    text-align: center;
+}
+
+.destination-cell {
+    width: 320px;
+}
+
+.bottom-margin {
+    margin-bottom: 30px;
 }

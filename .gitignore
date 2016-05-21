@@ -2,4 +2,5 @@ node_modules/
 config.json
 web-app/src/scripts/libs/
 web-app/src/styles/main.css
+web-app/src/font/
 **/.DS_Store

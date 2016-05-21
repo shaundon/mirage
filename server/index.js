@@ -9,6 +9,7 @@ var io = require('socket.io')(server);
 
 var Weather = require('./weather.js');
 var TfL = require('./tfl.js');
+var Conversation = require('./conversation.js');
 
 var dataStore = {};
 
@@ -32,6 +33,14 @@ server.listen(3000, function() {
   console.log('***** Mirage running on port 3000 *****');
 });
 
+const getConversation = () => {
+  Conversation.get().then((conversationData) => {
+    console.log(conversationData);
+    dataStore.conversation = conversationData;
+    io.emit('conversation', dataStore.conversation);
+  });
+};
+
 const getWeather = () => {
   Weather.get().then((weatherData) => {
     dataStore.weather = weatherData;
@@ -39,39 +48,16 @@ const getWeather = () => {
   });
 };
 
-TfL.getArrivals([
-  {
-    modeName: 'bus',
-    lineId: '171',
-    stationName: 'Millmark Grove',
-    direction: 'outbound'
-  },
-  {
-    modeName: 'bus',
-    lineId: '172',
-    stationName: 'Millmark Grove',
-    direction: 'outbound'
-  },
-  {
-    modeName: 'bus',
-    lineId: '484',
-    stationName: 'Endwell Road',
-    direction: 'outbound'
-  },
-  {
-    modeName: 'overground',
-    lineId: 'london-overground',
-    stationName: 'Brockley Rail Station',
-  }
-]).then((data) => {
-  dataStore.TfLArrivals = data;
-  io.emit('TfLArrivals', dataStore.TfLArrivals);
-});
-
-TfL.getDisruptions().then((data) => {
-  dataStore.TflDisruptions = data;
-  io.emit('TflDisruptions', dataStore.TflDisruptions);
-});
+const getTfLData = () => {
+  TfL.getArrivals(config.TfLLines).then((data) => {
+    dataStore.TfL = data;
+    io.emit('TfLData', dataStore.TfL);
+  });
+  TfL.getDisruptions().then((data) => {
+    dataStore.TfL = data;
+    io.emit('TfLData', dataStore.TfL);
+  });
+}
 
 const sendCurrentDataToClients = () => {
   for (var i in dataStore) {
@@ -81,8 +67,10 @@ const sendCurrentDataToClients = () => {
 
 const refreshData = () => {
   getWeather();
+  getTfLData();
+  getConversation();
 };
 refreshData();
 setTimeout(() => {
   refreshData();
-}, 600000);
+}, 60*1000);

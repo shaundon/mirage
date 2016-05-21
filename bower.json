@@ -12,6 +12,13 @@
     "tests"
   ],
   "dependencies": {
-    "socket.io-client": "^1.4.6"
+    "socket.io-client": "^1.4.6",
+    "angular": "^1.5.5",
+    "angular-socket-io": "^0.7.0",
+    "flexboxgrid": "^6.3.0",
+    "weather-icons": "^2.0.10"
+  },
+  "resolutions": {
+    "angular": ">=1.2.0 <1.5.0"
   }
 }

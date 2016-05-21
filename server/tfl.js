@@ -59,6 +59,9 @@ const TfL = {
       TfL.current.status = 'error';
     }
     else {
+      // Clear out the old data.
+      TfL.current.arrivals = {};
+
       TfL.current.status = 'success';
       // Data is an array of stops with arrival info.
       try {

@@ -5,12 +5,19 @@
   "main": "index.js",
   "scripts": {
     "app": "npm run build && node server/index",
-    "build": "lessc --clean-css=\"--s0\" web-app/src/styles/main.less web-app/src/styles/main.css",
-    "install": "bower install"
+    "build": "npm run copy-weather-fonts && lessc --clean-css=\"--s0\" web-app/src/styles/main.less web-app/src/styles/main.css",
+    "install": "bower install",
+    "lint": "eslint web-app/src/scripts/**/*.js",
+    "copy-weather-fonts": "rm -rf web-app/src/font && mkdir web-app/src/font && cp web-app/src/scripts/libs/weather-icons/font/* web-app/src/font/"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "eslint": "^2.10.2",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.8.0",
+    "eslint-plugin-jsx-a11y": "^1.2.2",
+    "eslint-plugin-react": "^5.1.1",
     "express": "^4.13.4",
     "forecast.io": "0.0.9",
     "less": "^2.7.1",
