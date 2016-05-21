@@ -1,0 +1,4 @@
+node_modules/
+config.json
+web-app/src/libs/
+**/.DS_Store
