@@ -1,13 +1,13 @@
     {
   "apiKeys": {
-    "forecast.io": "09a55779a02b4c62dc7009e0234f42f0",
+    "forecast.io": "",
     "TfL": {
-      "appId": "fb55fef3",
-      "appKey": "8f2886a05f0c3e9cc1197d83a44badab"
+      "appId": "",
+      "appKey": ""
     }
   },
   "geo": {
-    "latitude": "51.4636060",
-    "longitude": "-0.0360920"
+    "latitude": "0.00",
+    "longitude": "0.00"
   }
 }
