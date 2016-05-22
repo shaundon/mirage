@@ -65,13 +65,13 @@
           <div class="text-md">
             <i class="material-icons" ng-if="data.modeName === 'bus'">directions_bus</i>
             <i class="material-icons" ng-if="data.modeName === 'overground'">train</i>
-            {{line}}
+            <span class="line-id">{{line}}</span>
           </div>
           <table>
             <tbody>
               <tr ng-repeat="(destination, times) in data.arrivals">
-                <td class="destination-cell">{{destination | truncate:20:'..'}}</td>
-                <td class="right-aligned">{{times}}</td>
+                <td class="destination-cell text-md">{{destination | truncate:15:'..'}}</td>
+                <td class="right-aligned text-md">{{times}}</td>
               </tr>
             </tbody>
           </table>

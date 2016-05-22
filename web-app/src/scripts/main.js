@@ -130,7 +130,7 @@ angular.module('mirage', [
     }
   })
 
-  .filter('formatTfLArrivals', function() {
+  .filter('formatTfLArrivals', function($filter) {
     return function(lines) {
       let formatted = {};
       angular.forEach(lines, function(arrivals, line) {
@@ -157,6 +157,10 @@ angular.module('mirage', [
           let sortedArrivalTimes = currentLine.arrivals[destination].sort(function(a,b) {
             return a-b;
           });
+
+          // If there are more than two arrivals, leave only two.
+          sortedArrivalTimes = sortedArrivalTimes.splice(0, 2);
+
           // Convert to minutes.
           sortedArrivalTimes = sortedArrivalTimes.map(function(arrivalTime) {
             return Math.floor(arrivalTime/60);
@@ -168,7 +172,16 @@ angular.module('mirage', [
           sortedArrivalTimes = sortedArrivalTimes.join(', ') + termToUse;
           currentLine.arrivals[destination] = sortedArrivalTimes;
         });
-        formatted[line] = currentLine;
+
+        let lineName = line;
+
+        // If line name is overground, change to the station.
+        if (arrivals.length > 0 && lineName === 'london-overground') {
+          lineName = $filter('replaceText')(arrivals[0].stationName, ' Rail Station');
+        }
+
+        // Store the created object.
+        formatted[lineName] = currentLine;
       });
       return formatted;
     }

@@ -66,6 +66,7 @@ const sendCurrentDataToClients = () => {
 };
 
 const refreshData = () => {
+  console.log('Refreshing data..');
   getWeather();
   getTfLData();
   getConversation();
