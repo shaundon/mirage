@@ -18,19 +18,11 @@ fill in the necessary info.
 
 ## Progress
 
-### Back End Integrations
-
-#### To Do
+### To Do
 * Calendar
 
-#### Done
+### Done
 * Weather
 * Overground departures
 * Bus departures
 * TfL tube, overground and DLR disruptions
-
-
-### Front End
-
-#### To Do
-* All of it basically
