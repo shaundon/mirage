@@ -5,14 +5,16 @@
   "main": "index.js",
   "scripts": {
     "app": "npm run build && node server/index",
-    "build": "npm run copy-weather-fonts && lessc --clean-css=\"--s0\" web-app/src/styles/main.less web-app/src/styles/main.css",
+    "build": "npm run babel && npm run copy-weather-fonts && lessc --clean-css=\"--s0\" web-app/src/styles/main.less web-app/src/styles/main.css",
     "install": "bower install",
     "lint": "eslint web-app/src/scripts/**/*.js",
+    "babel": "babel web-app/src/scripts/main.js --out-file web-app/src/scripts/main.transpiled.js",
     "copy-weather-fonts": "rm -rf web-app/src/font && mkdir web-app/src/font && cp web-app/src/scripts/libs/weather-icons/font/* web-app/src/font/"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel-cli": "^6.9.0",
     "eslint": "^2.10.2",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-plugin-import": "^1.8.0",

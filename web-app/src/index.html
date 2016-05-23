@@ -2,6 +2,7 @@
 <html ng-app="mirage">
   <head>
     <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Mirage</title>
 
     <!-- Lib files. -->
@@ -10,7 +11,7 @@
     <script src="scripts/libs/angular-socket-io/socket.min.js"></script>
 
     <!-- App files. -->
-    <script src="scripts/main.js"></script>
+    <script src="scripts/main.transpiled.js"></script>
 
     <!-- Styles. -->
     <link href='//fonts.googleapis.com/css?family=Roboto:300,300italic,100' rel='stylesheet' type='text/css'>
@@ -59,6 +60,26 @@
       </div>
     </section>
 
+    <section ng-controller="TrainsController as ctrl" ng-show="ctrl.trainsService.departures" class="row">
+      <div class="col-sm-6">
+        <div class="text-md">
+          <i class="material-icons">train</i>
+          <span class="line-id">{{ctrl.trainsService.departures.station_name}}</span>
+        </div>
+        <table>
+          <tbody>
+            <tr ng-repeat="departure in ctrl.trainsService.departures.departures.all" ng-if="$index < 5 && departure.status !== 'CANCELLED'">
+              <td class="destination-cell text-md">{{departure.destination_name | truncate:15:'..'}}</td>
+              <td class="right-aligned text-md">
+                {{departure.best_departure_estimate_mins}}
+                {{departure.best_departure_estimate_mins === 1 ? 'min' : 'mins'}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     <section ng-controller="TfLController as ctrl">
       <div ng-show="ctrl.tflService.arrivals" class="row">
         <div ng-repeat="(line, data) in ctrl.tflService.arrivals" class="col-sm-6 bottom-margin">
@@ -77,7 +98,6 @@
           </table>
         </div>
       </div>
-
       <div ng-show="ctrl.tflService.disruption">
           <div ng-repeat="disruption in ctrl.tflService.disruption">
             {{disruption.description}}

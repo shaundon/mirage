@@ -50,6 +50,17 @@ angular.module('mirage', [
     return ts;
   })
 
+  .service('TrainsService', function(SocketService) {
+    let ts = {
+      departures: null
+    };
+    SocketService.on('trains', (data) => {
+      console.log('Train Departures', data);
+      ts.departures = data;
+    })
+    return ts;
+  })
+
   .service('WelcomeService', function(SocketService) {
     var ws = {
       message: '',
@@ -228,5 +239,9 @@ angular.module('mirage', [
 
   .controller('TfLController', function(TfLService) {
     this.tflService = TfLService;
+  })
+
+  .controller('TrainsController', function(TrainsService) {
+    this.trainsService = TrainsService;
   })
 ;

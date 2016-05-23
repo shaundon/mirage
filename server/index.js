@@ -10,6 +10,7 @@ var io = require('socket.io')(server);
 var Weather = require('./weather.js');
 var TfL = require('./tfl.js');
 var Conversation = require('./conversation.js');
+var Trains = require('./trains.js');
 
 var dataStore = {};
 
@@ -59,6 +60,13 @@ const getTfLData = () => {
   });
 }
 
+const getTrains = () => {
+  Trains.getDepartures(config.trainStation).then((data) => {
+    dataStore.trains = data;
+    io.emit('trains', dataStore.trains);
+  })
+}
+
 const sendCurrentDataToClients = () => {
   for (var i in dataStore) {
     io.emit(i, dataStore[i]);
@@ -70,6 +78,7 @@ const refreshData = () => {
   getWeather();
   getTfLData();
   getConversation();
+  getTrains();
 };
 refreshData();
 setTimeout(() => {

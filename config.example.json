@@ -1,7 +1,7 @@
     {
   "apiKeys": {
     "forecast.io": "",
-    "TfL": {
+    "transportApi": {
       "appId": "",
       "appKey": ""
     }
@@ -9,5 +9,18 @@
   "geo": {
     "latitude": "0.00",
     "longitude": "0.00"
-  }
+  },
+  "TfLLines": [
+    {
+      "modeName": "bus",
+      "lineId": "171",
+      "stationName": "Millmark Grove"
+    },
+    {
+      "modeName": "overground",
+      "lineId": "london-overground",
+      "stationName": "Brockley Rail Station"
+    }
+  ],
+  "trainStation": "BCY"
 }
