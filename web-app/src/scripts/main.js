@@ -1,14 +1,3 @@
-// var socket = io.connect();
-// socket.on('weather', (data) => {
-//   console.log(data);
-// });
-// socket.on('TfLArrivals', (data) => {
-//   console.log(data);
-// });
-// socket.on('TfLDisruptions', (data) => {
-//   console.log(data);
-// });
-
 angular.module('mirage', [
   'btford.socket-io'
 ])
@@ -82,8 +71,14 @@ angular.module('mirage', [
       // Remove the year.
       dateString = $filter('replaceText')(dateString, ` ${date.getFullYear()}`);
 
+      // If date < 10, remove the leading zero from the date.
+      const dateOfMonth = date.getDate();
+      if (dateOfMonth < 10) {
+        dateString = $filter('replaceText')(dateString, `0${dateOfMonth}`, dateOfMonth);
+      }
+
       // Add a suffix to the date.
-      switch (date.getDate()) {
+      switch (dateOfMonth) {
         case 1:
         case 21:
         case 31:
