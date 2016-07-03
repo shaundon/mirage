@@ -85,6 +85,6 @@ const refreshData = () => {
 refreshData();
 
 // Refresh data every 60 seconds.
-setTimeout(() => {
+setInterval(() => {
   refreshData();
 }, 60*1000);
