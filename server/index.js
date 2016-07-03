@@ -17,6 +17,11 @@ var dataStore = {};
 // Serve static files.
 app.use(express.static('web-app/src'));
 
+app.get('/refresh', function(req, res) {
+  io.emit('refresh');
+  res.send('Refresh command sent to all connected clients.');
+});
+
 io.on('connection', (socket) => {
   console.log('Client connected.');
 

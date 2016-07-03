@@ -2,9 +2,13 @@ angular.module('mirage', [
   'btford.socket-io'
 ])
   .service('SocketService', function(socketFactory) {
-    return socketFactory({
+    const ss = socketFactory({
       ioSocket: io.connect(location.origin),
     });
+    ss.on('refresh', () => {
+      window.location.reload();
+    });
+    return ss;
   })
 
   .service('WeatherService', function (SocketService) {
