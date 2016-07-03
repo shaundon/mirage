@@ -2,10 +2,12 @@
 
 @import "../scripts/libs/weather-icons/less/weather-icons";
 
+@import 'https://fonts.googleapis.com/css?family=Assistant|Material+Icons';
+
 html {
   background: #000;
   color: #fff;
-  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-family: "Assistant", Helvetica, Arial, sans-serif;
   font-size: 24px;
 }
 
@@ -28,6 +30,10 @@ html {
     font-size: @base-font-size;
 }
 
+.text-xs {
+    font-size: @base-font-size*0.75;
+}
+
 .row {
     margin-bottom: 50px;
 }
@@ -41,9 +47,17 @@ html {
 }
 
 .destination-cell {
-    width: 200px;
+    width: 300px;
+}
+
+.time-cell {
+    width: 110px;
 }
 
 .bottom-margin {
     margin-bottom: 30px;
+}
+
+.top-margin-10 {
+    margin-top: 10px;
 }

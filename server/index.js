@@ -58,14 +58,14 @@ const getTfLData = () => {
     dataStore.TfL = data;
     io.emit('TfLData', dataStore.TfL);
   });
-}
+};
 
 const getTrains = () => {
   Trains.getDepartures(config.trainStation).then((data) => {
     dataStore.trains = data;
     io.emit('trains', dataStore.trains);
   })
-}
+};
 
 const sendCurrentDataToClients = () => {
   for (var i in dataStore) {
@@ -80,7 +80,11 @@ const refreshData = () => {
   getConversation();
   getTrains();
 };
+
+// Refresh data on load.
 refreshData();
+
+// Refresh data every 60 seconds.
 setTimeout(() => {
   refreshData();
 }, 60*1000);

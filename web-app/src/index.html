@@ -14,9 +14,6 @@
     <script src="scripts/main.transpiled.js"></script>
 
     <!-- Styles. -->
-    <link href='//fonts.googleapis.com/css?family=Roboto:300,300italic,100' rel='stylesheet' type='text/css'>
-    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
     <link href="styles/main.css" rel="stylesheet">
 
   </head>
@@ -37,12 +34,15 @@
             <div class="text-md">
               {{ctrl.weatherService.hourly.summary}}
             </div>
+            <div class="text-md top-margin-10">
+              <i class="wi {{ctrl.weatherService.getPrecipitationIcon()}}"></i> {{ctrl.weatherService.currently.precipProbability*100}}%
+            </div>
           </div>
         </section>
       </div>
 
       <!-- Time and date. -->
-      <div class="col-sm-4 right-aligned">
+      <div class="col-sm-4 right-aligned time-and-date">
         <div class="text-xl">
           <time/>
         </div>
@@ -53,13 +53,15 @@
 
     </div>
 
+    <!-- Greeting. -->
     <section ng-controller="WelcomeController as ctrl" class="row">
       <div class="text-lg centre-aligned col-sm-12">{{ctrl.welcomeService.message}}</div>
-      <div ng-show="ctrl.welcomeService.extra" class="text-md col-sm-12">
+      <div ng-show="ctrl.welcomeService.extra" class="text-md col-sm-12 centre-aligned">
         {{ctrl.welcomeService.extra}}
       </div>
     </section>
 
+    <!-- Trains. -->
     <section ng-controller="TrainsController as ctrl" ng-show="ctrl.trainsService.departures" class="row">
       <div class="col-sm-6">
         <div class="text-md">
@@ -69,8 +71,8 @@
         <table>
           <tbody>
             <tr ng-repeat="departure in ctrl.trainsService.departures.departures.all" ng-if="$index < 5 && departure.status !== 'CANCELLED'">
-              <td class="destination-cell text-md">{{departure.destination_name | truncate:15:'..'}}</td>
-              <td class="right-aligned text-md">
+              <td class="destination-cell text-md">{{departure.destination_name | truncate:20:'..'}}</td>
+              <td class="time-cell right-aligned text-md">
                 {{departure.best_departure_estimate_mins}}
                 {{departure.best_departure_estimate_mins === 1 ? 'min' : 'mins'}}
               </td>
@@ -80,6 +82,7 @@
       </div>
     </section>
 
+    <!-- Buses. -->
     <section ng-controller="TfLController as ctrl">
       <div ng-show="ctrl.tflService.arrivals" class="row">
         <div ng-repeat="(line, data) in ctrl.tflService.arrivals" class="col-sm-6 bottom-margin">
@@ -91,15 +94,17 @@
           <table>
             <tbody>
               <tr ng-repeat="(destination, times) in data.arrivals">
-                <td class="destination-cell text-md">{{destination | truncate:15:'..'}}</td>
-                <td class="right-aligned text-md">{{times}}</td>
+                <td class="destination-cell text-md">{{destination | truncate:20:'..'}}</td>
+                <td class="time-cell right-aligned text-md">{{times}}</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
+
+      <!-- Disruptions. -->
       <div ng-show="ctrl.tflService.disruption">
-          <div ng-repeat="disruption in ctrl.tflService.disruption">
+          <div ng-repeat="disruption in ctrl.tflService.disruption" class="text-xs">
             {{disruption.description}}
           </div>
       </div>

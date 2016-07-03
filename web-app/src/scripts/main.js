@@ -12,7 +12,20 @@ angular.module('mirage', [
       currently: null,
       minutely: null,
       hourly: null,
-      daily: null
+      daily: null,
+      getPrecipitationIcon: () => {
+        if (ws.currently && ws.currently.precipType) {
+          switch (ws.currently.precipType) {
+            case 'rain':
+            case 'sleet':
+            default:
+              return 'wi-umbrella';
+            case 'snow':
+              return 'wi-snowflake-cold';
+          }
+        }
+        return 'wi-umbrella';
+      }
     };
     SocketService.on('weather', (data) => {
       console.log('Weather', data);

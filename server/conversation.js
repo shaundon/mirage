@@ -18,6 +18,17 @@ const Conversation = {
     var currentMonth = today.getMonth() + 1; // 1 = January, 12 = December.
     var currentDayOfMonth = today.getDate();
     var currentDayOfWeek = today.getDay(); // 0 = Sunday, 6 = Saturday.
+    var currentHour = today.getHours();
+
+    const DAYS_OF_WEEK = {
+      SUNDAY: 0,
+      MONDAY: 1,
+      TUESDAY: 2,
+      WEDNESDAY: 3,
+      THURSDAY: 4,
+      FRIDAY: 5,
+      SATURDAY: 6
+    };
 
     // January.
     if (currentMonth === 1) {
@@ -83,6 +94,53 @@ const Conversation = {
       if (currentDayOfMonth === 31) {
         return 'Happy New Year!';
       }
+
+    }
+
+    if (currentDayOfWeek === DAYS_OF_WEEK.MONDAY) {
+      return Conversation._getRandomArrayElement([
+        `Monday - one day.`,
+        `A new week begins.`
+      ])
+    }
+
+    if (currentDayOfWeek === DAYS_OF_WEEK.TUESDAY) {
+      return Conversation._getRandomArrayElement([
+        `Tuesday - two day.`,
+        ``
+      ])
+    }
+
+    if (currentDayOfWeek === DAYS_OF_WEEK.WEDNESDAY) {
+      return Conversation._getRandomArrayElement([
+        `Wednesday - when? Huh? What day?.`,
+        ``
+      ])
+    }
+
+    // Thursday.
+    if (currentDayOfWeek === DAYS_OF_WEEK.THURSDAY) {
+      return 'Almost the weekend..';
+      return Conversation._getRandomArrayElement([
+        `Almost the weekend..`,
+        `Thursday - the third day.`
+      ])
+    }
+
+    // Saturday.
+    if (currentDayOfWeek === DAYS_OF_WEEK.FRIDAY) {
+      if (currentHour > 17) {
+        return `It's the weekend!`;
+      }
+      return 'Happy Friday!';
+    }
+
+    // Saturday.
+    if (currentDayOfWeek === DAYS_OF_WEEK.SATURDAY) {
+      return Conversation._getRandomArrayElement([
+        `It's the weekend!`,
+        `The weekend is here!`
+      ])
     }
 
     return '';
