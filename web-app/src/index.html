@@ -70,7 +70,7 @@
         </div>
         <table>
           <tbody>
-            <tr ng-repeat="departure in ctrl.trainsService.departures.departures.all" ng-if="$index < 5 && departure.status !== 'CANCELLED'">
+            <tr ng-repeat="departure in ctrl.trainsService.departures.departures.all | orderBy:'best_departure_estimate_mins'" ng-if="$index < 5 && departure.status !== 'CANCELLED'">
               <td class="destination-cell text-md">{{departure.destination_name | truncate:20:'..'}}</td>
               <td class="time-cell right-aligned text-md">
                 {{departure.best_departure_estimate_mins}}
