@@ -61,27 +61,6 @@
       </div>
     </section>
 
-    <!-- Trains. -->
-    <section ng-controller="TrainsController as ctrl" ng-show="ctrl.trainsService.departures" class="row">
-      <div class="col-sm-6">
-        <div class="text-md">
-          <i class="material-icons">train</i>
-          <span class="line-id">{{ctrl.trainsService.departures.station_name}}</span>
-        </div>
-        <table>
-          <tbody>
-            <tr ng-repeat="departure in ctrl.trainsService.departures.departures.all | orderBy:'best_departure_estimate_mins'" ng-if="$index < 5 && departure.status !== 'CANCELLED'">
-              <td class="destination-cell text-md">{{departure.destination_name | truncate:20:'..'}}</td>
-              <td class="time-cell right-aligned text-md">
-                {{departure.best_departure_estimate_mins}}
-                {{departure.best_departure_estimate_mins === 1 ? 'min' : 'mins'}}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
     <!-- Buses. -->
     <section ng-controller="TfLController as ctrl">
       <div ng-show="ctrl.tflService.arrivals" class="row">
@@ -103,10 +82,35 @@
       </div>
 
       <!-- Disruptions. -->
-      <div ng-show="ctrl.tflService.disruption">
+      <!-- <div ng-show="ctrl.tflService.disruption">
           <div ng-repeat="disruption in ctrl.tflService.disruption" class="text-xs">
             {{disruption.description}}
           </div>
+      </div> -->
+
+    </section>
+
+    <!-- Trains. -->
+    <section ng-controller="TrainsController as ctrl" ng-show="ctrl.trainsService.departures" class="row">
+      <div class="col-sm-6">
+        <div class="text-md">
+          <i class="material-icons">train</i>
+          <span class="line-id">{{ctrl.trainsService.departures.station_name}}</span>
+        </div>
+        <table>
+          <tbody>
+            <tr ng-repeat="departure in ctrl.trainsService.departures.departures.all | orderBy:'best_departure_estimate_mins'" ng-if="$index < 5 && departure.status !== 'CANCELLED'">
+              <td class="destination-cell text-md">{{departure.destination_name | truncate:20:'..'}}</td>
+              <td class="time-cell right-aligned text-md">
+                <ng-switch on="departure.best_departure_estimate_mins">
+                  <span ng-switch-when="0">Now</span>
+                  <span ng-switch-when="1">1 min</span>
+                  <span ng-switch-default>{{departure.best_departure_estimate_mins}} mins</span>
+                </ng-switch>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
