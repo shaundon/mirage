@@ -81,9 +81,15 @@ const sendCurrentDataToClients = () => {
 const refreshData = () => {
   console.log('Refreshing data..');
   getWeather();
-  getTfLData();
   getConversation();
-  getTrains();
+
+  // If it's after 11:00pm or before 6:00am, don't refresh TfL
+  // or trains.
+  const currentHours = new Date().getHours();
+  if (currentHours > 5) {
+    getTfLData();
+    getTrains();
+  }
 };
 
 // Refresh data on load.
@@ -92,4 +98,4 @@ refreshData();
 // Refresh data every 60 seconds.
 setInterval(() => {
   refreshData();
-}, 60*1000);
+}, 60*2000);
