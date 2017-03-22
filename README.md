@@ -37,7 +37,5 @@ fill in the necessary info (more on that below).
 * Optimised for 768x1024 displays (e.g. an iPad in portrait mode).
 * UI is very minimal because it's designed to go behind a two way mirror.
 * Data refreshes every 2 minutes, and when a new user connects.
-* Trains and TfL data don't update before 5am, to save on API calls when they
-aren't running.
-* It's still hard coded to show birthday messages for me and SO on certain dates. I'll make that config driven soon.
+* Trains and TfL data don't update before 5am, to save on API calls when they aren't running.
 * TfL stuff works for both buses and tube.
