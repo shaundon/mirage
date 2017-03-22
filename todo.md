@@ -6,6 +6,7 @@ Todo list while I make some updates..
 * Log to a file and make a page show it?
 * Change bus numbers to bus stops (so it works like a real bus stop display).
 * Reliability.
-* Make messages configurable.
+* Local countdown of times
 
 ## Done
+* Make messages configurable.

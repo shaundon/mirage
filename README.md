@@ -30,6 +30,7 @@ fill in the necessary info (more on that below).
 * Geo data is needed to get the weather.
 * `TflLines` takes an array of objects. These map to data from the TfL arrivals API. For example https://api.tfl.gov.uk/Line/484/Arrivals. You can find the official name of your bus stop or station by looking at the API in your browser. Or on Citymapper.
 * `trainStation` takes a 3 letter station code. You can find these on Wikipedia.
+* `dateMessages` is an optional array of extra messages to display based on the current date. Dates must not be zero-padded.
 
 ## Other notes
 

@@ -22,5 +22,15 @@
       "stationName": "Brockley Rail Station"
     }
   ],
-  "trainStation": "BCY"
+  "trainStation": "BCY",
+  "dateMessages": [
+    {
+      "dates": ["31/12","1/1"],
+      "messages": ["Happy New Year!"]
+    },
+    {
+      "dates": ["14/2"],
+      "messages": ["Happy Valentine's Day!", "*kiss*"]
+    }
+  ]
 }
