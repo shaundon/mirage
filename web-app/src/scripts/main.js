@@ -13,26 +13,15 @@ angular.module('mirage', [
 
   .service('WeatherService', function (SocketService) {
     let ws = {
+      lastUpdated: null,
       currently: null,
       minutely: null,
       hourly: null,
-      daily: null,
-      getPrecipitationIcon: () => {
-        if (ws.currently && ws.currently.precipType) {
-          switch (ws.currently.precipType) {
-            case 'rain':
-            case 'sleet':
-            default:
-              return 'wi-umbrella';
-            case 'snow':
-              return 'wi-snowflake-cold';
-          }
-        }
-        return 'wi-umbrella';
-      }
+      daily: null
     };
     SocketService.on('weather', (data) => {
       console.log('Weather', data);
+      ws.lastUpdated = new Date();
       if (data.status = 'success') {
         ws.currently = data.currently;
         ws.minutely = data.minutely;
@@ -45,23 +34,25 @@ angular.module('mirage', [
 
   .service('TfLService', function (SocketService, $filter) {
     let ts = {
-      arrivals: null,
-      disruptions: null
+      lastUpdated: null,
+      arrivals: null
     };
     SocketService.on('TfLData', (data) => {
       console.log('TfL Data', data);
+      ts.lastUpdated = new Date();
       ts.arrivals = $filter('formatTfLArrivals')(data.arrivals);
-      ts.disruption = data.disruption;
     });
     return ts;
   })
 
   .service('TrainsService', function(SocketService) {
     let ts = {
+      lastUpdated: null,
       departures: null
     };
     SocketService.on('trains', (data) => {
       console.log('Train Departures', data);
+      ts.lastUpdated = new Date();
       ts.departures = data;
     })
     return ts;
@@ -211,10 +202,7 @@ angular.module('mirage', [
   })
 
   .filter('truncate', function() {
-    return function(text, length, truncateWith) {
-      if (!truncateWith) {
-        truncateWith = '';
-      }
+    return function(text, length, truncateWith = '') {
       if (text.length > length) {
         return text.substr(0, length) + truncateWith;
       }

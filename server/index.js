@@ -1,27 +1,29 @@
 // Load config.
-var config = require('../config.json');
+const config = require('../config.json');
 
 // Set up express and socket.io.
-var express = require('express');
-var app = express();
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+const express = require('express');
+const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 
-var Weather = require('./weather.js');
-var TfL = require('./tfl.js');
-var Conversation = require('./conversation.js');
-var Trains = require('./trains.js');
+const Weather = require('./weather.js');
+const TfL = require('./tfl.js');
+const Conversation = require('./conversation.js');
+const Trains = require('./trains.js');
 
-var dataStore = {};
+let dataStore = {};
 
 // Serve static files.
 app.use(express.static('web-app/src'));
 
+// Secret route for triggering all clients to refresh.
 app.get('/refresh', function(req, res) {
   io.emit('refresh');
   res.send('Refresh command sent to all connected clients.');
 });
 
+// When a client connects.
 io.on('connection', (socket) => {
   console.log('Client connected.');
 
@@ -56,10 +58,6 @@ const getWeather = () => {
 
 const getTfLData = () => {
   TfL.getArrivals(config.TfLLines).then((data) => {
-    dataStore.TfL = data;
-    io.emit('TfLData', dataStore.TfL);
-  });
-  TfL.getDisruptions().then((data) => {
     dataStore.TfL = data;
     io.emit('TfLData', dataStore.TfL);
   });

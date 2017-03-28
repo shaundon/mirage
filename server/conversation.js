@@ -1,13 +1,5 @@
 // Load config.
-var config = require('../config.json');
-
-/*
-December 20th to December 26th - Merry Christmas
-Jan 1st - Happy New Year
-Thursday - Almost the weekend
-Friday - Tomorrow's Saturday!
-Sunday evening - back to work in the morning
-*/
+const config = require('../config.json');
 
 const getRandomArrayElement = (arr) => arr[Math.floor(Math.random() * arr.length)];
 

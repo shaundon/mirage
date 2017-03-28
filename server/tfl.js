@@ -6,8 +6,7 @@ const config = require('../config.json');
 const TfL = {
   current: {
     status: null,
-    arrivals: {},
-    disruption: {}
+    arrivals: {}
   },
   _findMatchedArrival: (lineRequests, arrival) => {
     // Check each line request to see if it matches
@@ -27,27 +26,6 @@ const TfL = {
       }
     }
     return false;
-  },
-  _formatLineStatusData: (err, res, data) => {
-    if (err) {
-      console.log(err);
-      TfL.current.status = 'error';
-    }
-    else if (res.statusCode !== 200) {
-      console.log(`Error! Status code was ${res.statusCode}`, data);
-      TfL.current.status = 'error';
-    }
-    else {
-      TfL.current.status = 'success';
-      // Data is an array of stops with arrival info.
-      try {
-        data = JSON.parse(data);
-        TfL.current.disruption = data;
-      } catch (err) {
-        console.log('Could not parse TfL line status data', err, data);
-        TfL.current.status = 'error';
-      }
-    }
   },
   _formatLineArrivalData: (lineRequests, err, res, data) => {
     if (err) {
@@ -80,18 +58,6 @@ const TfL = {
         TfL.current.status = 'error';
       }
     }
-  },
-  getDisruptions: () => {
-    console.log('Requesting TfL disruption data..');
-
-    return new Promise((fulfill, reject) => {
-      // Request data for the lines.
-      request(`https://api.tfl.gov.uk/Line/Mode/tube,dlr,overground/Disruption`, (err, res, data) => {
-        console.log('Got TfL disruption data.');
-        TfL._formatLineStatusData(err, res, data);
-        fulfill(TfL.current);
-      });
-    });
   },
   getArrivals: (lineRequests) => {
 
