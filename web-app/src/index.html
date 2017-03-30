@@ -17,13 +17,13 @@
     <link href="styles/main.css" rel="stylesheet">
 
   </head>
-  <body>
+  <body ng-controller="ConnectionController as connectionCtrl">
 
     <div class="row">
 
       <!-- Weather. -->
       <div class="col-sm-8">
-        <section ng-controller="WeatherController as ctrl">
+        <section ng-controller="WeatherController as ctrl" ng-show="connectionCtrl.connectionService.connected">
           <div ng-show="ctrl.weatherService.currently">
             <div>
               <span class="text-xl">
@@ -51,7 +51,7 @@
     </div>
 
     <!-- Greeting. -->
-    <section ng-controller="WelcomeController as ctrl" class="row">
+    <section ng-controller="WelcomeController as ctrl" class="row" ng-show="connectionCtrl.connectionService.connected">
       <div class="text-lg centre-aligned col-sm-12">{{ctrl.welcomeService.message}}</div>
       <div ng-show="ctrl.welcomeService.extra" class="text-md col-sm-12 centre-aligned">
         {{ctrl.welcomeService.extra}}
@@ -59,7 +59,7 @@
     </section>
 
     <!-- Buses. -->
-    <section ng-controller="TfLController as ctrl">
+    <section ng-controller="TfLController as ctrl" ng-show="connectionCtrl.connectionService.connected">
       <div ng-show="ctrl.tflService.arrivals" class="row">
         <div ng-repeat="(line, data) in ctrl.tflService.arrivals" class="col-sm-6 bottom-margin">
           <div class="text-md">
@@ -81,7 +81,8 @@
     </section>
 
     <!-- Trains. -->
-    <section ng-controller="TrainsController as ctrl" ng-show="ctrl.trainsService.departures" class="row">
+    <section ng-controller="TrainsController as ctrl" ng-show="ctrl.trainsService.departures && connectionCtrl.connectionService.connected" class="row">
+
       <div class="col-sm-6">
         <div class="text-md">
           <i class="material-icons">train</i>
@@ -103,6 +104,15 @@
         </table>
       </div>
     </section>
+
+    <!-- Offline message. -->
+    <section class="row" ng-hide="connectionCtrl.connectionService.connected">
+      <div class="text-lg centre-aligned col-sm-12">Offline</div>
+      <div class="text-md col-sm-12 centre-aligned">
+        Lost connection to server
+      </div>
+    </section>
+
 
   </body>
 </html>

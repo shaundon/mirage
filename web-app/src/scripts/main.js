@@ -5,10 +5,17 @@ angular.module('mirage', [
     const ss = socketFactory({
       ioSocket: io.connect(location.origin),
     });
-    ss.on('refresh', () => {
-      window.location.reload();
-    });
+    ss.on('refresh', () => window.location.reload());
     return ss;
+  })
+
+  .service('ConnectionService', (SocketService) => {
+    let cs = {
+      connected: false
+    };
+    SocketService.on('connect', () => cs.connected = true);
+    SocketService.on('disconnect', () => cs.connected = false);
+    return cs;
   })
 
   .service('WeatherService', function (SocketService) {
@@ -227,6 +234,25 @@ angular.module('mirage', [
       }
       return input.replace(textToReplace, replaceWith);
     }
+  })
+
+  .controller('ConnectionController', function($window, $interval, ConnectionService) {
+
+    // 30 minutes.
+    const REFRESH_INTERVAL = 1800000;
+
+    this.connectionService = ConnectionService;
+
+    // Attempt to refresh the page entirely every 30 minutes, provided
+    // the server is running.
+    $interval(() => {
+      if (ConnectionService.connected) {
+        window.location.reload();
+      } else {
+        console.log('Server is down, will not refresh.');
+      }
+    }, REFRESH_INTERVAL);
+
   })
 
   .controller('WelcomeController', function(WelcomeService) {
