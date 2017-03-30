@@ -11,7 +11,7 @@
     "babel": "babel web-app/src/scripts/main.js --out-file web-app/src/scripts/main.transpiled.js",
     "copy-weather-fonts": "rm -rf web-app/src/font && mkdir web-app/src/font && cp web-app/src/scripts/libs/weather-icons/font/* web-app/src/font/",
     "start-bkgrnd": "npm run build && forever start server/index.js",
-    "stop-bkgrund": "forever stop server/index.js"
+    "stop-bkgrnd": "forever stop server/index.js"
   },
   "author": "",
   "license": "ISC",
