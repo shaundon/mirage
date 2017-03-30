@@ -39,3 +39,11 @@ fill in the necessary info (more on that below).
 * Data refreshes every 2 minutes, and when a new user connects.
 * Trains and TfL data don't update before 5am, to save on API calls when they aren't running.
 * TfL stuff works for both buses and tube.
+
+## Running on a server
+
+Currently I have a Raspberry Pi to run this app. I tried using systemd but couldn't
+get on with it, so I'm now trying [forever](https://www.npmjs.com/package/forever).
+
+So, to start the app running in forever, run `npm run start-background`. Run `npm run stop-background` to
+stop it.

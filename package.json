@@ -9,7 +9,9 @@
     "install": "bower install",
     "lint": "eslint web-app/src/scripts/**/*.js",
     "babel": "babel web-app/src/scripts/main.js --out-file web-app/src/scripts/main.transpiled.js",
-    "copy-weather-fonts": "rm -rf web-app/src/font && mkdir web-app/src/font && cp web-app/src/scripts/libs/weather-icons/font/* web-app/src/font/"
+    "copy-weather-fonts": "rm -rf web-app/src/font && mkdir web-app/src/font && cp web-app/src/scripts/libs/weather-icons/font/* web-app/src/font/",
+    "start-bkgrnd": "npm run build && forever start server/index.js",
+    "stop-bkgrund": "forever stop server/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +26,7 @@
     "eslint-plugin-react": "^5.1.1",
     "express": "^4.13.4",
     "forecast.io": "0.0.9",
+    "forever": "^0.15.3",
     "less": "^2.7.1",
     "less-plugin-clean-css": "^1.5.1",
     "request": "^2.72.0",
