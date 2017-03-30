@@ -236,7 +236,7 @@ angular.module('mirage', [
     }
   })
 
-  .controller('ConnectionController', function($window, $interval, ConnectionService) {
+  .controller('ConnectionController', function($interval, ConnectionService) {
 
     // 30 minutes.
     const REFRESH_INTERVAL = 1800000;
