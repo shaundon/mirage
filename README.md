@@ -47,3 +47,11 @@ get on with it, so I'm now trying [forever](https://www.npmjs.com/package/foreve
 
 So, to start the app running in forever, run `npm run start-bkgrnd`. Run `npm run stop-bkgrnd` to
 stop it.
+
+To abstract this into a command that runs whenever the server starts, you can use Crontab.
+[This StackOverflow answer](http://stackoverflow.com/a/13388741) got me started with it.
+For reference, the command I'm having Crontab run is:
+
+```
+@reboot /usr/bin/npm run start-bkgrnd --prefix ~/code/mirage
+```
