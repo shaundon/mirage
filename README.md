@@ -7,6 +7,14 @@ and then leave it on all the time.
 
 Currently supports weather, UK rail stations, and TfL stations.
 
+## How it looks
+
+The UI looks like this:
+![](assets/ui-view.png)
+
+Set up behind a two-way mirror, it looks like this:
+![](assets/real-view.jpg)
+
 ## How To Use
 
 ### Prerequisites
